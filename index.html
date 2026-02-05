@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>LG ThinQ LifeOS Prototype</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="home-label" title="김지현의 집">김지현의 집</div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="btnQuickSearch" aria-label="검색"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+        <button class="icon-btn" id="btnBell" aria-label="알림"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></button>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="content" id="content">
+      <!-- HOME -->
+      <section class="screen active" data-screen="home" aria-label="홈">
+        <div class="section-head">
+          <h2 class="h2">라이프 대시보드</h2>
+          
+        </div>
+
+        <div class="grid cards-2 home-dashboard">
+          <button class="card feature" data-nav="mood" aria-label="MoodUP 공간 무드">
+            <div class="card-top">
+              <div class="badge">MoodUP</div>
+              <div class="card-icon">🎨</div>
+            </div>
+            <div class="card-title">공간 무드</div>
+            
+          </button>
+
+          <button class="card feature" data-nav="magazine" aria-label="우리 집 매거진">
+            <div class="card-top">
+              <div class="badge">Monthly</div>
+              <div class="card-icon">📰</div>
+            </div>
+            <div class="card-title">우리 집 매거진</div>
+            
+          </button>
+
+          <button class="card feature" data-nav="magazine" aria-label="Life-Log 타임라인">
+            <div class="card-top">
+              <div class="badge">Life-Log</div>
+              <div class="card-icon">🗓️</div>
+            </div>
+            <div class="card-title">Life-Log</div>
+            
+          </button>
+
+          <button class="card feature" data-nav="ourlife" aria-label="LG OurLife">
+            <div class="card-top">
+              <div class="badge accent">LG OurLife</div>
+              <div class="card-icon">📊</div>
+            </div>
+            <div class="card-title">생활 패턴 리포트</div>
+            
+          </button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid cards-2 home-dashboard">
+          <button class="card feature" data-nav="store" aria-label="리워드 스토어">
+            <div class="card-top">
+              <div class="badge">Rewards</div>
+              <div class="card-icon">🛍️</div>
+            </div>
+            <div class="card-title">리워드 스토어</div>
+            
+          </button>
+
+          <button class="card feature" data-nav="grow" aria-label="Grow & Moving">
+            <div class="card-top">
+              <div class="badge">Grow</div>
+              <div class="card-icon">🚚</div>
+            </div>
+            <div class="card-title">Grow & Moving</div>
+            
+          </button>
+        </div>
+
+        <div class="card info glass">
+          <div class="info-row">
+            <div class="info-k">데이터 레거시</div>
+            <div class="info-v"><span class="dot live"></span>자동 백업·새로고침 중</div>
+          </div>
+          <div class="info-mini">가전 사용 로그는 주기적으로 동기화되고, Experience Migration을 위해 영구 보존됩니다.</div>
+        </div>
+      </section>
+
+      <!-- MOOD -->
+      <section class="screen" data-screen="mood" aria-label="공간 무드">
+        <div class="section-head tight">
+          <h2 class="h2">공간 무드 동기화</h2>
+          
+        </div>
+
+        <div class="card glass">
+          <div class="row">
+            <div class="k">사진 업로드</div>
+            <label class="btn primary" for="moodInput">사진 선택</label>
+            <input class="hidden" type="file" id="moodInput" accept="image/*" />
+          </div>
+
+          <div class="mood-preview">
+            <div class="preview-img" id="moodPreview">
+              <div class="placeholder">선택한 사진이 여기에 표시됩니다</div>
+            </div>
+            <div class="preview-meta">
+              <div class="chip">AI 컬러</div>
+              <div class="color-swatch" id="moodSwatch"></div>
+              <div class="mini" id="moodRGB">RGB —</div>
+            </div>
+          </div>
+
+          <div class="mood-sync">
+            <div class="sync-card">
+              <div class="sync-title">조명</div>
+              <div class="sync-bar"><div class="sync-fill" id="syncLight"></div></div>
+              <div class="mini">자동 적용 (데모)</div>
+            </div>
+            <div class="sync-card">
+              <div class="sync-title">가전 패널</div>
+              <div class="sync-bar"><div class="sync-fill" id="syncPanel"></div></div>
+              <div class="mini">자동 적용 (데모)</div>
+            </div>
+          </div>
+
+          <div class="row end">
+            <button class="btn ghost" data-nav="home">홈으로</button>
+            <button class="btn" id="btnSaveMood">무드 저장</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MAGAZINE -->
+      <section class="screen" data-screen="magazine" aria-label="우리 집 매거진">
+        <div class="section-head tight">
+          <h2 class="h2">우리 집 매거진</h2>
+          
+        </div>
+
+        <div class="card glass magazine-hero">
+          <div class="mag-cover" id="magCover">
+            <div class="mag-header">
+              <div class="mag-tag">Monthly</div>
+              <div class="mag-title">우리 집 2월 하이라이트</div>
+            </div>
+            <div class="mag-grid">
+              <div class="mag-tile"><div class="t-ic">🍳</div><div class="t-k">집밥</div><div class="t-v" id="magCook">12회</div></div>
+              <div class="mag-tile"><div class="t-ic">🌿</div><div class="t-k">힐링</div><div class="t-v" id="magHeal">8회</div></div>
+              <div class="mag-tile"><div class="t-ic">🎬</div><div class="t-k">홈시네마</div><div class="t-v" id="magCinema">4회</div></div>
+              <div class="mag-tile"><div class="t-ic">🐶</div><div class="t-k">펫</div><div class="t-v">찰나+</div></div>
+            </div>
+            
+          </div>
+
+          <div class="row end">
+            <button class="btn ghost" data-nav="home">홈으로</button>
+            <button class="btn primary" id="btnMagShare">공유 카드 저장</button>
+          </div>
+        </div>
+      
+        <div class="card glass subcard">
+          <div class="subhead">
+            <div class="k">기념일 무드 메모리</div>
+            <button class="btn small primary press" id="btnAnnivReplay">자동 재현</button>
+          </div>
+          <div class="anniv-row">
+            <button class="anniv" data-mood="anniv">결혼기념일</button>
+            <button class="anniv" data-mood="birthday">생일</button>
+            <button class="anniv" data-mood="custom">기념일 추가</button>
+          </div>
+          <div class="chips">
+            <span class="chip">조명</span><span class="chip">음악</span><span class="chip">가전 Sync</span>
+          </div>
+        </div>
+
+        <div class="card glass subcard">
+          <div class="subhead">
+            <div class="k">Life‑Log 타임라인</div>
+            <button class="btn small ghost press" id="btnIssueMagazine">자동 발행</button>
+          </div>
+          <div class="timeline">
+            <div class="tl"><span class="dot"></span><div class="tlt"><b>핑크빛 무드</b><span>이번 달 최다 · 거실</span></div></div>
+            <div class="tl"><span class="dot"></span><div class="tlt"><b>같이 요리한 날</b><span>조리 + 식기세척기 조합</span></div></div>
+            <div class="tl"><span class="dot"></span><div class="tlt"><b>홈시네마</b><span>TV + 조명 연동</span></div></div>
+          </div>
+          <div class="row end">
+            <button class="btn primary press" id="btnMagShare2">공유 카드</button>
+          </div>
+        </div>
+
+        <div class="card glass subcard">
+          <div class="subhead">
+            <div class="k">펫 찰나 하이라이트</div>
+            <label class="btn small" for="petUploadInMag">사진 업로드</label>
+            <input class="hidden" type="file" id="petUploadInMag" accept="image/*" multiple />
+          </div>
+          <div class="pet-mini" id="petMini">
+            <div class="pet-card"><img src="./assets/pet_01.png" alt="펫 찰나 1"><div class="pet-cap">찰나 #01</div></div>
+            <div class="pet-card"><img src="./assets/pet_02.png" alt="펫 찰나 2"><div class="pet-cap">찰나 #02</div></div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- PET -->
+      <section class="screen" data-screen="pet" aria-label="펫 찰나">
+        <div class="section-head tight">
+          <h2 class="h2">펫 찰나 앨범</h2>
+          
+        </div>
+
+        <div class="card glass">
+          <div class="row">
+            <div class="k">사진 추가</div>
+            <label class="btn primary" for="petInput">사진 업로드</label>
+            <input class="hidden" type="file" id="petInput" accept="image/*" multiple />
+          </div>
+
+          <div class="pet-grid" id="petGrid" aria-label="펫 갤러리">
+            <!-- Seed images -->
+            <figure class="pet-item"><img src="./assets/pet_01.png" alt="펫 찰나 1"/><figcaption>찰나 #01</figcaption></figure>
+            <figure class="pet-item"><img src="./assets/pet_02.png" alt="펫 찰나 2"/><figcaption>찰나 #02</figcaption></figure>
+          </div>
+
+          <div class="row end">
+            <button class="btn ghost" data-nav="home">홈으로</button>
+            <button class="btn" id="btnPetHighlight">오늘의 찰나 선택</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- OURLIFE -->
+      <section class="screen" data-screen="ourlife" aria-label="LG OurLife">
+        <div class="section-head tight">
+          <h2 class="h2">LG OurLife</h2>
+          
+        </div>
+
+        <!-- Discovery -->
+        <div class="card glass">
+          <div class="card-h">
+            <div>
+              <div class="k">Life Discovery</div>
+            </div>
+            <div class="pill strong">홈셰프 라이프</div>
+          </div>
+
+          <div class="discovery">
+            <div class="disco-big">전국 상위 <span class="accent">20%</span></div>
+            <div class="mini">조리 가전 + 식기세척기 반복 패턴 기반</div>
+            <div class="chiprow">
+              <span class="chip">🍳 Cook + Dishwasher</span>
+              <span class="chip">⏰ 18–21시</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Challenge (vertical, roomy) -->
+        <div class="card glass">
+          <div class="card-h">
+            <div>
+              <div class="k">Light Challenge</div>
+              <div class="mini"></div>
+            </div>
+            <button class="btn small" id="btnRefreshMission">추천 새로고침</button>
+          </div>
+
+          <div class="mission-stack" id="missionStack">
+            <!-- injected -->
+          </div>
+
+          <div class="mini muted">모든 달성은 사용자 입력 없이, ThinQ 로그 조합으로 자동 인식됩니다.</div>
+        </div>
+
+        <!-- Titles -->
+        <div class="card glass">
+          <div class="card-h">
+            <div>
+              <div class="k">Life Title</div>
+              <div class="mini"></div>
+            </div>
+            <div class="pill">RARE</div>
+          </div>
+          <div class="title-row">
+            <div class="title-card">
+              <div class="t-ic">👑</div>
+              <div class="t-body">
+                <div class="t-name">홈셰프 마스터</div>
+                
+              </div>
+            </div>
+            <div class="stamp-row">
+              <span class="stamp">힐링 라이퍼</span>
+              <span class="stamp">집콕 마스터</span>
+              <span class="stamp">밸런스 플레이어</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Report + Wrapped -->
+        <div class="card glass">
+          <div class="card-h">
+            <div>
+              <div class="k">Life Report</div>
+              <div class="mini"></div>
+            </div>
+            <button class="btn primary small" id="btnOpenWrapped">Wrapped 보기</button>
+          </div>
+
+          <div class="report-bars">
+            <div class="rbar">
+              <div class="rname">집밥</div>
+              <div class="rtrack"><div class="rfill" style="--w:.82"></div></div>
+              <div class="rval" id="rvCook">12</div>
+            </div>
+            <div class="rbar">
+              <div class="rname">힐링</div>
+              <div class="rtrack"><div class="rfill" style="--w:.62"></div></div>
+              <div class="rval" id="rvHeal">8</div>
+            </div>
+            <div class="rbar">
+              <div class="rname">홈시네마</div>
+              <div class="rtrack"><div class="rfill" style="--w:.40"></div></div>
+              <div class="rval" id="rvCinema">4</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STORE -->
+      <section class="screen" data-screen="store" aria-label="리워드 스토어">
+        <div class="section-head tight">
+          <h2 class="h2">리워드 스토어</h2>
+          
+        </div>
+
+        <div class="card glass">
+          <div class="store-grid">
+            <button class="store-item press" data-sku="ott">
+              <div class="si-ic">🎬</div>
+              <div class="si-name">OTT 구독권</div>
+              <div class="si-meta">1개월권 · 2,400P</div>
+            </button>
+            <button class="store-item press" data-sku="petfilter">
+              <div class="si-ic">🐶</div>
+              <div class="si-name">반려견 특화 필터</div>
+              <div class="si-meta">매거진/공유카드 · 900P</div>
+            </button>
+            <button class="store-item press" data-sku="detergent">
+              <div class="si-ic">🧴</div>
+              <div class="si-name">세제</div>
+              <div class="si-meta">소모품 · 650P</div>
+            </button>
+            <button class="store-item press" data-sku="toothpaste">
+              <div class="si-ic">🪥</div>
+              <div class="si-name">치약</div>
+              <div class="si-meta">생활용품 · 420P</div>
+            </button>
+          </div>
+
+          <div class="row end">
+            <button class="btn ghost" data-nav="home">홈으로</button>
+            <button class="btn" id="btnOpenStoreInfo">포인트 안내</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- GROW -->
+      <section class="screen" data-screen="grow" aria-label="Grow & Moving">
+        <div class="section-head tight">
+          <h2 class="h2">Grow & Moving</h2>
+          
+        </div>
+
+        <div class="card glass">
+          <div class="card-h">
+            <div>
+              <div class="k">디지털 기능 해금</div>
+              <div class="mini"></div>
+            </div>
+            <button class="btn primary small press" id="btnUnlockBaby">베이비 모드</button>
+          </div>
+
+          <div class="unlock-preview" id="unlockPreview">
+            <div class="unlock-hero">
+              <div class="u-title">Baby Mode</div>
+              
+            </div>
+            <div class="unlock-cards">
+              <div class="u-card"><div class="u-k">공기청정</div><div class="u-v">Care+</div></div>
+              <div class="u-card"><div class="u-k">온습도</div><div class="u-v">Auto</div></div>
+              <div class="u-card"><div class="u-k">조명</div><div class="u-v">Soft</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card glass">
+          <div class="card-h">
+            <div>
+              <div class="k">무빙 컨시어지</div>
+              <div class="mini"></div>
+            </div>
+            <label class="btn small" for="floorplanInput">도면 업로드</label>
+            <input class="hidden" type="file" id="floorplanInput" accept="image/*,application/pdf" />
+          </div>
+
+          <div class="ar-demo" id="arDemo">
+            <div class="ar-canvas">
+              <img src="./assets/floorplan_demo.svg" alt="AR 도면 시뮬레이션 데모" />
+            </div>
+            <div class="ar-side">
+              <div class="ar-chip">추천 배치</div>
+              <div class="ar-list">
+                <div class="ar-row"><span>로봇청소기</span><b>동선 12% 개선</b></div>
+                <div class="ar-row"><span>공기청정기</span><b>커버리지 +18%</b></div>
+                <div class="ar-row"><span>세탁/건조</span><b>동선 -9m</b></div>
+              </div>
+              <button class="btn primary block press" id="btnApplyMove">배치 적용 (데모)</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="하단 메뉴">
+      <button class="nav-item active" data-nav="home">
+        <span class="ni-ic">🏠</span><span class="ni-t">홈</span>
+      </button>
+      <button class="nav-item" data-nav="mood">
+        <span class="ni-ic">🎨</span><span class="ni-t">무드</span>
+      </button>
+
+      <button class="nav-item" data-nav="magazine">
+        <span class="ni-ic">📰</span><span class="ni-t">매거진</span>
+      </button>
+<button class="nav-item" data-nav="ourlife">
+        <span class="ni-ic">📊</span><span class="ni-t">OurLife</span>
+      </button>
+      <button class="nav-item" data-nav="grow">
+        <span class="ni-ic">🚚</span><span class="ni-t">확장</span>
+      </button>
+    </nav>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Wrapped Overlay -->
+    <section class="wrapped" id="wrapped" aria-hidden="true">
+      <div class="wrapped-dim" data-wclose></div>
+      <div class="wrapped-panel" role="dialog" aria-modal="true" aria-label="OurLife Wrapped">
+        <div class="wrapped-top">
+          <div class="progress">
+            <div class="pbar"></div><div class="pbar"></div><div class="pbar"></div><div class="pbar"></div>
+          </div>
+          <div class="w-actions">
+            <button class="icon-btn" id="btnWShare" aria-label="공유 카드 저장" title="Share">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.8-4H15a3 3 0 0 0 .2 1l-7 4a3 3 0 1 0 0 6l7 4a3 3 0 1 0 .8-1.4l-7-4a3 3 0 0 0 0-2l7-4c.2.2.5.3.8.4z"/></svg>
+            </button>
+            <button class="icon-btn" data-wclose aria-label="닫기" title="Close">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.7a1 1 0 0 0-1.4 0L12 10.6 7.1 5.7a1 1 0 0 0-1.4 1.4l4.9 4.9-4.9 4.9a1 1 0 1 0 1.4 1.4l4.9-4.9 4.9 4.9a1 1 0 0 0 1.4-1.4l-4.9-4.9 4.9-4.9a1 1 0 0 0 0-1.4z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="slides" id="slides" tabindex="0">
+          <section class="slide" data-s="0">
+            <div class="slide-bg bg1"></div>
+            <div class="slide-inner">
+              <div class="w-brand"><span class="brand-dot" aria-hidden="true"></span><span>LG OurLife Wrapped</span></div>
+              <div class="w-title">김지현의 집은<br/><span class="accent">홈셰프 라이프</span>였어요.</div>
+              
+              <div class="pillrow">
+                <span class="pill">🍳 Cook + Dishwasher</span>
+                <span class="pill">⏰ 18–21시</span>
+                <span class="pill">🎯 집밥 2회 도전</span>
+              </div>
+              <div class="hint"></div>
+            </div>
+          </section>
+
+          <section class="slide" data-s="1">
+            <div class="slide-bg bg2"></div>
+            <div class="slide-inner">
+              <div class="w-title">이번 달,<br/>집밥 <span class="accent"><span class="wcount" data-to="12">0</span>회</span> 기록.</div>
+              
+              <div class="mega-bars">
+                <div class="mbar"><div class="mname">집밥</div><div class="mtrack"><div class="mfill" style="--w:0.82"></div></div><div class="mval">12</div></div>
+                <div class="mbar"><div class="mname">힐링</div><div class="mtrack"><div class="mfill" style="--w:0.62"></div></div><div class="mval">8</div></div>
+                <div class="mbar"><div class="mname">홈시네마</div><div class="mtrack"><div class="mfill" style="--w:0.40"></div></div><div class="mval">4</div></div>
+              </div>
+              <div class="tilegrid">
+                <div class="tile wtile"><div class="t-ic">🧺</div><div class="t-k">자동화</div><div class="t-v">+38%</div></div>
+                <div class="tile wtile"><div class="t-ic">🕯️</div><div class="t-k">무드</div><div class="t-v">High</div></div>
+                <div class="tile wtile"><div class="t-ic">🧼</div><div class="t-k">케어</div><div class="t-v">Stable</div></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="slide" data-s="2">
+            <div class="slide-bg bg3"></div>
+            <div class="slide-inner">
+              <div class="w-title">타이틀 획득!</div>
+              <div class="title-card">
+                <div class="tc-ic">👑</div>
+                <div class="tc-txt">
+                  <div class="tc-name">홈셰프 마스터</div>
+                  
+                </div>
+                <div class="tc-tag">RARE</div>
+              </div>
+              
+              <div class="stamps"><span class="stamp">힐링 라이퍼</span><span class="stamp">집콕 마스터</span><span class="stamp">밸런스 플레이어</span></div>
+              <div class="confetti" aria-hidden="true"></div>
+            </div>
+          </section>
+
+          <section class="slide" data-s="3">
+            <div class="slide-bg bg4"></div>
+            <div class="slide-inner">
+              <div class="w-title">이번 달 총<br/><span class="time-saved"><span id="savedHours">6.5</span>시간</span>을 벌었어요.</div>
+<div class="shop-pill">🐶 반려견 필터</div>
+                <div class="shop-pill">🧴 세제</div>
+                <div class="shop-pill">🪥 치약</div>
+              </div>
+              <button class="btn primary block press" id="btnWShare2">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.8-4H15a3 3 0 0 0 .2 1l-7 4a3 3 0 1 0 0 6l7 4a3 3 0 1 0 .8-1.4l-7-4a3 3 0 0 0 0-2l7-4c.2.2.5.3.8.4z"/></svg>
+                이 스토리 공유 카드 저장
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <div class="wrapped-nav">
+          <button class="navbtn press" id="prev" aria-label="이전">‹</button>
+          <button class="navbtn press" id="next" aria-label="다음">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Share Modal -->
+    <section class="modal" id="modal" aria-hidden="true">
+      <div class="modal-dim" data-close></div>
+      <div class="modal-panel" role="dialog" aria-modal="true" aria-label="공유">
+        <div class="modal-top">
+          <div class="modal-title">공유 카드</div>
+          <button class="icon-btn" data-close aria-label="닫기">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.7a1 1 0 0 0-1.4 0L12 10.6 7.1 5.7a1 1 0 0 0-1.4 1.4l4.9 4.9-4.9 4.9a1 1 0 1 0 1.4 1.4l4.9-4.9 4.9 4.9a1 1 0 0 0 1.4-1.4l-4.9-4.9 4.9-4.9a1 1 0 0 0 0-1.4z"/></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <canvas id="shareCanvas" width="1080" height="1920"></canvas>
+          <div class="row end">
+            <button class="btn ghost" id="btnCloseModal">닫기</button>
+            <button class="btn primary press" id="btnDownloadShare">PNG 저장</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
